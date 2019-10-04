@@ -1,0 +1,160 @@
+常用16进制 
+0x1000 4kb
+0x100000 1Mb
+
+16进制  
+0x900       2. 加载loader.s  栈底的位置
+0xb00       内存数量
+0xc00       loader.s代码的执行位置
+0x1500      4. 内核入口位置
+0x7c00      1. 加载bootloader
+0X70000     3. 内核文件的位置
+0x9f000     栈的位置
+0x100000    页表位置
+
+Global Descriptor Table (base=0x00000000c0000900, limit=31):
+GDT[0x00]=??? descriptor hi=0x00000000, lo=0x00000000
+GDT[0x01]=Code segment, base=0x00000000, limit=0xffffffff, Execute-Only, Non-Conforming, Accessed, 32-bit
+GDT[0x02]=Data segment, base=0x00000000, limit=0xffffffff, Read/Write, Accessed
+GDT[0x03]=Data segment, base=0xc00b8000, limit=0x00007fff, Read/Write, Accessed
+
+cr3: 0x000000100000
+0x00000000-0x000fffff -> 0x000000000000-0x0000000fffff
+0xc0000000-0xc00fffff -> 0x000000000000-0x0000000fffff
+0xffc00000-0xffc00fff -> 0x000000101000-0x000000101fff
+0xfff00000-0xffffefff -> 0x000000101000-0x0000001fffff
+0xfffff000-0xffffffff -> 0x000000100000-0x000000100fff
+
+layout asm
+display/i $pc
+
+Interrupt Descriptor Table (base=0x0000000000004160, limit=1031):
+IDT[0x00]=32-Bit Interrupt Gate target=0x0008:0xc000150e, DPL=0
+IDT[0x01]=32-Bit Interrupt Gate target=0x0008:0xc0001527, DPL=0
+IDT[0x02]=32-Bit Interrupt Gate target=0x0008:0xc0001540, DPL=0
+IDT[0x03]=32-Bit Interrupt Gate target=0x0008:0xc0001559, DPL=0
+IDT[0x04]=32-Bit Interrupt Gate target=0x0008:0xc0001572, DPL=0
+IDT[0x05]=32-Bit Interrupt Gate target=0x0008:0xc000158e, DPL=0
+IDT[0x06]=32-Bit Interrupt Gate target=0x0008:0xc00015aa, DPL=0
+IDT[0x07]=32-Bit Interrupt Gate target=0x0008:0xc00015c6, DPL=0
+IDT[0x08]=32-Bit Interrupt Gate target=0x0008:0xc00015e2, DPL=0
+IDT[0x09]=32-Bit Interrupt Gate target=0x0008:0xc00015fd, DPL=0
+IDT[0x0a]=32-Bit Interrupt Gate target=0x0008:0xc0001619, DPL=0
+IDT[0x0b]=32-Bit Interrupt Gate target=0x0008:0xc0001634, DPL=0
+IDT[0x0c]=32-Bit Interrupt Gate target=0x0008:0xc000164f, DPL=0
+IDT[0x0d]=32-Bit Interrupt Gate target=0x0008:0xc000166b, DPL=0
+IDT[0x0e]=32-Bit Interrupt Gate target=0x0008:0xc0001686, DPL=0
+IDT[0x0f]=32-Bit Interrupt Gate target=0x0008:0xc00016a1, DPL=0
+IDT[0x10]=32-Bit Interrupt Gate target=0x0008:0xc00016bd, DPL=0
+IDT[0x11]=32-Bit Interrupt Gate target=0x0008:0xc00016d9, DPL=0
+IDT[0x12]=32-Bit Interrupt Gate target=0x0008:0xc00016f4, DPL=0
+IDT[0x13]=32-Bit Interrupt Gate target=0x0008:0xc0001710, DPL=0
+IDT[0x14]=32-Bit Interrupt Gate target=0x0008:0xc000172c, DPL=0
+IDT[0x15]=32-Bit Interrupt Gate target=0x0008:0xc0001748, DPL=0
+IDT[0x16]=32-Bit Interrupt Gate target=0x0008:0xc0001764, DPL=0
+IDT[0x17]=32-Bit Interrupt Gate target=0x0008:0xc0001780, DPL=0
+IDT[0x18]=32-Bit Interrupt Gate target=0x0008:0xc000179c, DPL=0
+IDT[0x19]=32-Bit Interrupt Gate target=0x0008:0xc00017b7, DPL=0
+IDT[0x1a]=32-Bit Interrupt Gate target=0x0008:0xc00017d3, DPL=0
+IDT[0x1b]=32-Bit Interrupt Gate target=0x0008:0xc00017ee, DPL=0
+IDT[0x1c]=32-Bit Interrupt Gate target=0x0008:0xc0001809, DPL=0
+IDT[0x1d]=32-Bit Interrupt Gate target=0x0008:0xc0001825, DPL=0
+IDT[0x1e]=32-Bit Interrupt Gate target=0x0008:0xc0001840, DPL=0
+IDT[0x1f]=32-Bit Interrupt Gate target=0x0008:0xc000185b, DPL=0
+IDT[0x20]=32-Bit Interrupt Gate target=0x0008:0xc0001877, DPL=0
+IDT[0x21]=32-Bit Interrupt Gate target=0x0008:0xc0001893, DPL=0
+IDT[0x22]=32-Bit Interrupt Gate target=0x0008:0xc00018af, DPL=0
+IDT[0x23]=32-Bit Interrupt Gate target=0x0008:0xc00018cb, DPL=0
+IDT[0x24]=32-Bit Interrupt Gate target=0x0008:0xc00018e7, DPL=0
+IDT[0x25]=32-Bit Interrupt Gate target=0x0008:0xc0001903, DPL=0
+IDT[0x26]=32-Bit Interrupt Gate target=0x0008:0xc000191f, DPL=0
+IDT[0x27]=32-Bit Interrupt Gate target=0x0008:0xc000193b, DPL=0
+IDT[0x28]=32-Bit Interrupt Gate target=0x0008:0xc0001957, DPL=0
+IDT[0x29]=32-Bit Interrupt Gate target=0x0008:0xc0001973, DPL=0
+IDT[0x2a]=32-Bit Interrupt Gate target=0x0008:0xc000198f, DPL=0
+IDT[0x2b]=32-Bit Interrupt Gate target=0x0008:0xc00019ab, DPL=0
+IDT[0x2c]=32-Bit Interrupt Gate target=0x0008:0xc00019c7, DPL=0
+IDT[0x2d]=32-Bit Interrupt Gate target=0x0008:0xc00019e3, DPL=0
+IDT[0x2e]=32-Bit Interrupt Gate target=0x0008:0xc00019ff, DPL=0
+IDT[0x2f]=32-Bit Interrupt Gate target=0x0008:0xc0001a1b, DPL=0
+IDT[0x30]=32-Bit Interrupt Gate target=0x0008:0x000b8000, DPL=0
+IDT[0x31]=32-Bit Interrupt Gate target=0x0008:0x00000000, DPL=0
+IDT[0x32]=32-Bit Interrupt Gate target=0x0008:0x0008150e, DPL=0
+IDT[0x33]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x34]=32-Bit Interrupt Gate target=0x0008:0x00081527, DPL=0
+IDT[0x35]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x36]=32-Bit Interrupt Gate target=0x0008:0x00081540, DPL=0
+IDT[0x37]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x38]=32-Bit Interrupt Gate target=0x0008:0x00081559, DPL=0
+IDT[0x39]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x3a]=32-Bit Interrupt Gate target=0x0008:0x00081572, DPL=0
+IDT[0x3b]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x3c]=32-Bit Interrupt Gate target=0x0008:0x0008158e, DPL=0
+IDT[0x3d]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x3e]=32-Bit Interrupt Gate target=0x0008:0x000815aa, DPL=0
+IDT[0x3f]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x40]=32-Bit Interrupt Gate target=0x0008:0x000815c6, DPL=0
+IDT[0x41]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x42]=32-Bit Interrupt Gate target=0x0008:0x000815e2, DPL=0
+IDT[0x43]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x44]=32-Bit Interrupt Gate target=0x0008:0x000815fd, DPL=0
+IDT[0x45]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x46]=32-Bit Interrupt Gate target=0x0008:0x00081619, DPL=0
+IDT[0x47]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x48]=32-Bit Interrupt Gate target=0x0008:0x00081634, DPL=0
+IDT[0x49]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x4a]=32-Bit Interrupt Gate target=0x0008:0x0008164f, DPL=0
+IDT[0x4b]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x4c]=32-Bit Interrupt Gate target=0x0008:0x0008166b, DPL=0
+IDT[0x4d]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x4e]=32-Bit Interrupt Gate target=0x0008:0x00081686, DPL=0
+IDT[0x4f]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x50]=32-Bit Interrupt Gate target=0x0008:0x000816a1, DPL=0
+IDT[0x51]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x52]=32-Bit Interrupt Gate target=0x0008:0x000816bd, DPL=0
+IDT[0x53]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x54]=32-Bit Interrupt Gate target=0x0008:0x000816d9, DPL=0
+IDT[0x55]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x56]=32-Bit Interrupt Gate target=0x0008:0x000816f4, DPL=0
+IDT[0x57]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x58]=32-Bit Interrupt Gate target=0x0008:0x00081710, DPL=0
+IDT[0x59]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x5a]=32-Bit Interrupt Gate target=0x0008:0x0008172c, DPL=0
+IDT[0x5b]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x5c]=32-Bit Interrupt Gate target=0x0008:0x00081748, DPL=0
+IDT[0x5d]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x5e]=32-Bit Interrupt Gate target=0x0008:0x00081764, DPL=0
+IDT[0x5f]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x60]=32-Bit Interrupt Gate target=0x0008:0x00081780, DPL=0
+IDT[0x61]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x62]=32-Bit Interrupt Gate target=0x0008:0x0008179c, DPL=0
+IDT[0x63]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x64]=32-Bit Interrupt Gate target=0x0008:0x000817b7, DPL=0
+IDT[0x65]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x66]=32-Bit Interrupt Gate target=0x0008:0x000817d3, DPL=0
+IDT[0x67]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x68]=32-Bit Interrupt Gate target=0x0008:0x000817ee, DPL=0
+IDT[0x69]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x6a]=32-Bit Interrupt Gate target=0x0008:0x00081809, DPL=0
+IDT[0x6b]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x6c]=32-Bit Interrupt Gate target=0x0008:0x00081825, DPL=0
+IDT[0x6d]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x6e]=32-Bit Interrupt Gate target=0x0008:0x00081840, DPL=0
+IDT[0x6f]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x70]=32-Bit Interrupt Gate target=0x0008:0x0008185b, DPL=0
+IDT[0x71]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x72]=32-Bit Interrupt Gate target=0x0008:0x00081877, DPL=0
+IDT[0x73]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x74]=32-Bit Interrupt Gate target=0x0008:0x00081893, DPL=0
+IDT[0x75]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x76]=32-Bit Interrupt Gate target=0x0008:0x000818af, DPL=0
+IDT[0x77]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x78]=32-Bit Interrupt Gate target=0x0008:0x000818cb, DPL=0
+IDT[0x79]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x7a]=32-Bit Interrupt Gate target=0x0008:0x000818e7, DPL=0
+IDT[0x7b]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x7c]=32-Bit Interrupt Gate target=0x0008:0x00081903, DPL=0
+IDT[0x7d]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x7e]=32-Bit Interrupt Gate target=0x0008:0x0008191f, DPL=0
+IDT[0x7f]=32-Bit Interrupt Gate target=0x0008:0xc0008e00, DPL=0
+IDT[0x80]=32-Bit Interrupt Gate target=0x0008:0x0008193b, DPL=0
