@@ -83,15 +83,16 @@ void general_intr_func(uint8_t vect){
     if (vect == 0x27 || vect == 0x2f) {	// 0x2f是从片8259A上的最后一个irq引脚，保留
         return;		//IRQ7和IRQ15会产生伪中断(spurious interrupt),无须处理。
     }
-    console_clear();
-    printk("!!!!!!!      excetion message begin  !!!!!!!!\n");
+    //console_clear();
+    printk("!!!!!!!      exception message begin  !!!!!!!!\n");
+    printk("exception numb:%d   name:",vect);
     printk(intr_name[vect]);
     if (vect == 14) {	  // 若为Pagefault,将缺失的地址打印出来并悬停
         int page_fault_vaddr = 0; 
         asm ("movl %%cr2, %0" : "=r" (page_fault_vaddr));	  // cr2是存放造成page_fault的地址
         printk("\npage fault addr is 0x %d",page_fault_vaddr);
     }
-    printk("\n!!!!!!!      excetion message end    !!!!!!!!\n");
+    printk("\n!!!!!!!      exception message end    !!!!!!!!\n");
     while(1);
 }
 
@@ -116,4 +117,23 @@ void idt_init(){
     uint64_t idt_operand = (sizeof(idt_secs)-1)|((uint64_t)((uint32_t)idt_secs<<16 ));
     asm volatile("lidt %0"::"m"(idt_operand));
     printk("----idt_init_end----\n");
+}
+
+enum intr_status get_intr_status(){
+    uint32_t eflags;
+    uint32_t mask_flag = 0x200;
+    asm volatile("pushfl; popl %0":"=g"(eflags));
+    return (eflags & mask_flag) ? INTR_ON :INTR_OFF;
+}
+
+enum intr_status set_intr_status(enum intr_status status){
+    if(get_intr_status()==status){
+        return status;
+    }else if(get_intr_status()==INTR_ON){
+        asm volatile("cli":::"memory");     //关
+        return INTR_ON;
+    }else{
+        asm volatile("sti");    //开
+        return INTR_OFF;
+    }
 }

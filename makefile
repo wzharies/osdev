@@ -52,11 +52,11 @@ update_image:
 
 .PHONY:qemu 
 qemu:
-	qemu-system-i386 -m 1024 -drive format=raw,file=floppy.img,index=0,media=disk -boot c
+	qemu-system-i386 -m 512 -drive format=raw,file=floppy.img,index=0,media=disk -boot c
 
 .PHONY:debug 
 debug:
-	qemu-system-i386 -m 1024 -drive format=raw,file=floppy.img,index=0,media=disk -S -s -boot c &
+	qemu-system-i386 -m 512 -drive format=raw,file=floppy.img,index=0,media=disk -S -s -boot c &
 	sleep 1
 	gdb  -x gdbinit
 
